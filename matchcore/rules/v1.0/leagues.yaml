@@ -1,0 +1,44 @@
+# CCIFA Leagues rule pack — v1.0
+version: v1.0
+namespace: ccifa.leagues
+rules:
+  types:
+    - national
+    - continental
+    - worldcup
+  points:
+    win: 3
+    draw: 1
+    loss: 0
+  promotion:
+    enabled: true
+    top_n: 2
+  relegation:
+    enabled: true
+    bottom_n: 2
+  tiebreakers:
+    - points
+    - goal_difference
+    - goals_for
+    - head_to_head
+    - fair_play
+  season:
+    start_month: 9
+    end_month: 6
+    matchday_count: 38
+  continental_leagues:
+    - id: ACL
+      name: Afro Coding League
+      confederation: AF
+    - id: ACL-AM
+      name: Americas Coding League
+      confederation: AM
+    - id: ACL-AS
+      name: Asian Coding League
+      confederation: AS
+    - id: ECL
+      name: European Coding League
+      confederation: EU
+    - id: OCL
+      name: Oceania Coding League
+      confederation: OC

@@ -1,0 +1,125 @@
+# --- Python ---
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# --- Virtual envs ---
+.venv/
+venv/
+env/
+ENV/
+
+# --- Node / TypeScript ---
+node_modules/
+.pnpm-store/
+.pnp.*
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/sdks
+!.yarn/versions
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+*.tsbuildinfo
+.eslintcache
+.cache/
+.parcel-cache/
+.vite/
+.turbo/
+*.local
+
+# --- Build output ---
+dist/
+out/
+.next/
+.nuxt/
+.output/
+astro/
+.cache/
+
+# --- Astro ---
+.astro/
+
+# --- Testing / coverage ---
+coverage/
+.coverage
+.cache/
+.pytest_cache/
+.tox/
+htmlcov/
+.nyc_output
+
+# --- IDE / editors ---
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+.project
+.settings/
+*.sublime-*
+.history/
+
+# --- OS ---
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+Desktop.ini
+
+# --- Env / secrets ---
+.env
+.env.*
+!.env.example
+
+# --- Databases / data ---
+*.sqlite
+*.sqlite3
+*.db
+*.db-journal
+postgres-data/
+redis-data/
+minio-data/
+meili-data/
+
+# --- Logs ---
+logs/
+*.log
+dev.log
+
+# --- Kubernetes ---
+*.kubeconfig
+kubeconfig
+
+# --- Terraform ---
+*.tfstate
+*.tfstate.*
+.terraform/
+
+# --- Load test output ---
+load-test-results/
+k6-results/

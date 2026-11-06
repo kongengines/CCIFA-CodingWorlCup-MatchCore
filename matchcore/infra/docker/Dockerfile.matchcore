@@ -1,0 +1,29 @@
+# MatchCore — Python 3.12 sovereign engine image.
+FROM python:3.12-slim AS base
+
+ENV PYTHONUNBUFFERED=1 \
+    PYTHONDONTWRITEBYTECODE=1 \
+    PIP_NO_CACHE_DIR=1 \
+    TZ=UTC
+
+WORKDIR /app
+
+# System deps for cryptography + psycopg
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    build-essential libpq-dev curl && \
+    rm -rf /var/lib/apt/lists/*
+
+COPY requirements.txt /app/requirements.txt
+RUN pip install --upgrade pip && pip install -r /app/requirements.txt
+
+COPY matchcore /app/matchcore
+COPY scripts /app/scripts
+
+RUN mkdir -p /data
+
+EXPOSE 8000
+
+HEALTHCHECK --interval=15s --timeout=5s --retries=5 \
+  CMD python -c "import urllib.request; urllib.request.urlopen('http://localhost:8000/health')" || exit 1
+
+CMD ["uvicorn", "matchcore.engine.api.rest:app", "--host", "0.0.0.0", "--port", "8000"]

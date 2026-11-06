@@ -1,0 +1,13 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ccifa.org/schemas/rule-v1.0.json",
+  "title": "CCIFA Rule File v1.0",
+  "type": "object",
+  "required": ["version", "namespace", "rules"],
+  "properties": {
+    "version": {"type": "string", "pattern": "^v\\d+\\.\\d+$"},
+    "namespace": {"type": "string", "pattern": "^ccifa\\.[a-z]+$"},
+    "rules": {"type": "object"}
+  },
+  "additionalProperties": false
+}

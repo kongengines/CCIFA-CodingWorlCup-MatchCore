@@ -1,0 +1,21 @@
+name: Load tests
+
+on:
+  schedule: [{ cron: "0 2 * * *" }]
+  workflow_dispatch:
+
+jobs:
+  k6:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Start MatchCore
+        run: |
+          docker compose up -d matchcore
+          sleep 10
+      - name: k6 smoke
+        run: |
+          docker run --rm --network=host             -v ${{ github.workspace }}/matchcore/tests/load/k6:/scripts             grafana/k6:0.54.0 run /scripts/smoke.test.js
+      - name: k6 worldcup scenario
+        run: |
+          docker run --rm --network=host             -v ${{ github.workspace }}/matchcore/tests/load/k6:/scripts             grafana/k6:0.54.0 run /scripts/worldcup.test.js

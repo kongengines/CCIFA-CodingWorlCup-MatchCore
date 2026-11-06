@@ -1,0 +1,14 @@
+apiVersion: chaos-mesh.org/v1alpha1
+kind: PodChaos
+metadata:
+  name: arena-pod-failure
+  namespace: ccifa
+spec:
+  action: pod-kill
+  mode: one
+  selector:
+    namespaces: ["ccifa"]
+    labelSelectors:
+      app: arena-node
+  scheduler:
+    cron: "@every 10m"

@@ -1,0 +1,40 @@
+# CCIFA Matches rule pack — v1.0
+version: v1.0
+namespace: ccifa.matches
+rules:
+  kinds:
+    - OFFICIAL
+    - FRIENDLY
+  duration:
+    official_minutes: 180
+    friendly_minutes: 90
+  problems_per_match:
+    min: 3
+    max: 5
+  scoring:
+    win: 3
+    draw: 1
+    loss: 0
+  submissions:
+    max_per_problem: 10
+    time_penalty_seconds: 600
+  languages_allowed:
+    - python
+    - typescript
+    - rust
+    - go
+    - java
+    - cpp
+    - c
+    - kotlin
+    - swift
+    - haskell
+  penalties:
+    wrong_answer: 10
+    time_limit: 20
+    runtime_error: 15
+    plagiarism: disqualify
+  result_record:
+    sealed: true
+    chain_hash: true
+    arbiter_signature: ed25519

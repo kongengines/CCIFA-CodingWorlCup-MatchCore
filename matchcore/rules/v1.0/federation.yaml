@@ -1,0 +1,46 @@
+# CCIFA Federation rule pack — v1.0
+# Governs the structure of the federation, the 5 confederations,
+# the organigram and the standing committees.
+version: v1.0
+namespace: ccifa.federation
+rules:
+  name: "Code & Craft International Federation Association"
+  short_name: CCIFA
+  founded: 2024
+  certified_languages: [en, fr, es, it, de, hi, pt, ja, zh, ko, ar]
+  confederations:
+    - code: AF
+      name: African Confederation
+      region: Africa
+    - code: AM
+      name: Americas Confederation
+      region: Americas
+    - code: AS
+      name: Asian Confederation
+      region: Asia
+    - code: EU
+      name: European Confederation
+      region: Europe
+    - code: OC
+      name: Oceanian Confederation
+      region: Oceania
+  organigram:
+    president: "Dr. Ada Lovelace-Coding"
+    vice_presidents: 3
+  committees:
+    - name: Executive Committee
+      quorum: 0.6
+      term_years: 4
+    - name: Sport-Coding Committee
+      quorum: 0.5
+      term_years: 4
+    - name: Arbitration Committee
+      quorum: 0.66
+      term_years: 4
+    - name: Ethics & Integrity Committee
+      quorum: 0.66
+      term_years: 6
+  world_cup:
+    cycle: quadrennial
+    next_edition: 2026
+    host_rotation: [AF, AM, AS, EU, OC]

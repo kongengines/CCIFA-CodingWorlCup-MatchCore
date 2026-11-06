@@ -1,0 +1,21 @@
+# CCIFA Drafts rule pack — v1.0
+version: v1.0
+namespace: ccifa.drafts
+rules:
+  frequency: annual
+  rounds: 3
+  eligibility:
+    min_age: 16
+    requires_amateur_or_semi_license: true
+    no_prior_pro_contract: true
+  order:
+    rule: reverse_previous_season_ranking
+    weakest_first: true
+  pick_window_minutes: 5
+  trades:
+    allowed: true
+    deadline: end_of_round_2
+  signing:
+    contract_min_years: 1
+    contract_max_years: 4
+    salary_cap_respected: true

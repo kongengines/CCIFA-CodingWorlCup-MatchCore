@@ -1,0 +1,26 @@
+# CCIFA Clubs rule pack — v1.0
+version: v1.0
+namespace: ccifa.clubs
+rules:
+  license_required: true
+  roster:
+    min_size: 5
+    max_size: 25
+    min_pro_licenses: 3
+  transfers:
+    windows_per_season: 2
+    require_medical: true
+    require_federation_signoff: true
+  financial_fair_play:
+    enabled: true
+    max_salary_to_revenue_ratio: 0.7
+    audit_frequency: annual
+  sponsors:
+    ethical_screening: true
+    prohibited_sectors:
+      - gambling
+      - tobacco
+      - weapons
+  youth_academy:
+    enabled: true
+    min_age: 14

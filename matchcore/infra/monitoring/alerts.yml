@@ -1,0 +1,31 @@
+groups:
+  - name: matchcore
+    rules:
+      - alert: MatchCoreDown
+        expr: up{job="matchcore"} == 0
+        for: 1m
+        labels: { severity: critical }
+        annotations:
+          summary: "MatchCore is down"
+          description: "MatchCore {{ $labels.instance }} has been down for more than 1 minute."
+
+      - alert: HighErrorRate
+        expr: rate(http_requests_total{job="matchcore",status=~"5.."}[5m]) > 0.05
+        for: 5m
+        labels: { severity: warning }
+        annotations:
+          summary: "High 5xx error rate on MatchCore"
+
+      - alert: SealVerificationFailing
+        expr: matchcore_ledger_verified == 0
+        for: 1m
+        labels: { severity: critical }
+        annotations:
+          summary: "Sovereign Ledger verification is FAILING"
+
+      - alert: ArenaNodeOffline
+        expr: up{job="arena-nodes"} == 0
+        for: 30s
+        labels: { severity: critical }
+        annotations:
+          summary: "Arena node {{ $labels.instance }} is offline"

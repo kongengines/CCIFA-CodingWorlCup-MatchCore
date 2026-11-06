@@ -1,0 +1,29 @@
+# CCIFA Arbitration rule pack — v1.0
+version: v1.0
+namespace: ccifa.arbitration
+rules:
+  arbiters_per_match: 1
+  presiding_arbiter: required
+  decisions:
+    - VALID
+    - INVALID
+    - PENALTY
+    - DISQUALIFY
+  accreditation:
+    min_experience_years: 5
+    requires_license: true
+    renewal_years: 2
+  anomalies:
+    - submission_timeout
+    - suspected_plagiarism
+    - hardware_failure
+    - network_leak
+  sanctions:
+    warning: 0
+    minor_penalty: 5
+    major_penalty: 15
+    disqualification: forfeit
+  appeals:
+    allowed: true
+    window_hours: 48
+    review_committee: Arbitration Committee

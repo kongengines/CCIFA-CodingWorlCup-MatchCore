@@ -1,0 +1,31 @@
+# CCIFA Arena rule pack — v1.0
+version: v1.0
+namespace: ccifa.arena
+rules:
+  offline_required: true
+  network_disabled: true
+  physical_seal: true
+  hardware:
+    hsm_backed: true
+    signing_algorithm: ed25519
+    hash_algorithm: sha256
+  arena_node:
+    min_count: 3
+    isolated: true
+    no_internet: true
+  usb_courier:
+    enabled: true
+    signed_bundle: true
+    root_hash_verification: true
+  match_lifecycle:
+    - assert_offline
+    - start
+    - submit_solutions
+    - arbitrate
+    - finish
+    - seal
+    - emit
+    - physical_export
+  compliance:
+    certified_by: CCIFA-Arena-Commission
+    audit_frequency: per_match

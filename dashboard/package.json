@@ -1,0 +1,44 @@
+{
+  "name": "ccifa-dashboard",
+  "private": true,
+  "version": "0.7.0",
+  "type": "module",
+  "description": "CCIFA Coding World Cup — sovereign dashboard (React + TS, no Vue.js).",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -b && vite build",
+    "preview": "vite preview",
+    "lint": "eslint . --ext ts,tsx",
+    "format": "prettier --write \"src/**/*.{ts,tsx}\"",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-router-dom": "^6.26.2",
+    "@tanstack/react-query": "^5.59.0",
+    "zustand": "^4.5.5",
+    "i18next": "^23.15.1",
+    "react-i18next": "^15.0.2",
+    "i18next-browser-languagedetector": "^8.0.0",
+    "recharts": "^2.12.7",
+    "lucide-react": "^0.451.0",
+    "clsx": "^2.1.1",
+    "tailwind-merge": "^2.5.4",
+    "date-fns": "^4.1.0"
+  },
+  "devDependencies": {
+    "@types/react": "^18.3.11",
+    "@types/react-dom": "^18.3.0",
+    "@vitejs/plugin-react": "^4.3.2",
+    "typescript": "^5.6.3",
+    "vite": "^5.4.9",
+    "tailwindcss": "^3.4.14",
+    "postcss": "^8.4.47",
+    "autoprefixer": "^10.4.20",
+    "eslint": "^9.12.0",
+    "@typescript-eslint/eslint-plugin": "^8.8.0",
+    "@typescript-eslint/parser": "^8.8.0",
+    "prettier": "^3.3.3"
+  }
+}

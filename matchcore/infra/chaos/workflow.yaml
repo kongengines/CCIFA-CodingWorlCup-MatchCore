@@ -1,0 +1,43 @@
+apiVersion: chaos-mesh.org/v1alpha1
+kind: Workflow
+metadata:
+  name: ccifa-resilience-workflow
+  namespace: ccifa
+spec:
+  entry: serial
+  templates:
+    - name: serial
+      templateType: Serial
+      children:
+        - pod-kill-step
+        - network-partition-step
+        - verify-ledger-step
+    - name: pod-kill-step
+      templateType: PodChaos
+      deadline: 60s
+      podChaos:
+        action: pod-kill
+        mode: one
+        selector:
+          namespaces: ["ccifa"]
+          labelSelectors:
+            app: arena-node
+    - name: network-partition-step
+      templateType: NetworkChaos
+      deadline: 30s
+      networkChaos:
+        action: partition
+        mode: all
+        selector:
+          namespaces: ["ccifa"]
+          labelSelectors:
+            app: matchcore
+        direction: both
+    - name: verify-ledger-step
+      templateType: Task
+      deadline: 30s
+      task:
+        container:
+          name: verify
+          image: curlimages/curl:8.10.1
+          command: ["curl", "-sf", "-X", "POST", "http://matchcore:8000/ledger/verify"]

@@ -1,0 +1,30 @@
+# CCIFA Licenses rule pack — v1.0
+version: v1.0
+namespace: ccifa.licenses
+rules:
+  levels:
+    - PRO
+    - SEMI
+    - AMATEUR
+  issuance:
+    requires_federation_signoff: true
+    requires_medical: true
+    requires_ethics_check: true
+  validity:
+    season_based: true
+    expires: "YYYY-08-31"
+  salary_cap:
+    PRO: 5000000
+    SEMI: 750000
+    AMATEUR: 0
+  can_play_official:
+    PRO: true
+    SEMI: true
+    AMATEUR: false
+  revocation:
+    reasons:
+      - doping
+      - match_fixing
+      - plagiarism_repeat
+      - ethics_violation
+    requires_arbitration_committee: true

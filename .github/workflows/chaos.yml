@@ -1,0 +1,23 @@
+name: Chaos
+
+on:
+  schedule: [{ cron: "0 3 * * 6" }]
+  workflow_dispatch:
+
+jobs:
+  chaos:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up kind cluster
+        uses: helm/kind-action@v1
+      - name: Install Chaos Mesh
+        run: |
+          kubectl apply -f https://raw.githubusercontent.com/chaos-mesh/chaos-mesh/master/manifests/crd.yaml
+          kubectl apply -f matchcore/infra/chaos/pod-failure.yaml
+          kubectl apply -f matchcore/infra/chaos/network-partition.yaml
+          kubectl apply -f matchcore/infra/chaos/workflow.yaml
+      - name: Wait & verify ledger
+        run: |
+          sleep 1800
+          kubectl exec deploy/matchcore -- curl -s -X POST http://localhost:8000/ledger/verify

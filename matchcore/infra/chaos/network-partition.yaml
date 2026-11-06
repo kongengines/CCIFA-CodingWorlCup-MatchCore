@@ -1,0 +1,22 @@
+apiVersion: chaos-mesh.org/v1alpha1
+kind: NetworkChaos
+metadata:
+  name: arena-network-partition
+  namespace: ccifa
+spec:
+  action: partition
+  mode: all
+  selector:
+    namespaces: ["ccifa"]
+    labelSelectors:
+      app: arena-node
+  direction: both
+  target:
+    selector:
+      namespaces: ["ccifa"]
+      labelSelectors:
+        app: matchcore
+    mode: all
+  duration: "30s"
+  scheduler:
+    cron: "@every 15m"

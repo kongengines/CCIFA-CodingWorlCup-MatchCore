@@ -1,0 +1,48 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  lint-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+      - name: Install Python deps
+        run: pip install -r requirements.txt ruff mypy
+      - name: Lint Python
+        run: ruff check matchcore scripts
+      - name: Type-check Python
+        run: mypy matchcore/engine --ignore-missing-imports || true
+      - name: Run unit tests
+        run: python -m pytest matchcore/tests/unit -v
+      - name: Install dashboard deps
+        working-directory: dashboard
+        run: npm install --no-audit
+      - name: Dashboard typecheck
+        working-directory: dashboard
+        run: npm run typecheck
+      - name: Dashboard build
+        working-directory: dashboard
+        run: npm run build
+
+  offline-sim:
+    runs-on: ubuntu-latest
+    needs: lint-test
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.12" }
+      - run: pip install -r requirements.txt
+      - name: Offline match simulation
+        run: python matchcore/tests/offline_simulation/simulate_match.py
+      - name: Season simulation
+        run: python matchcore/tests/offline_simulation/simulate_season.py

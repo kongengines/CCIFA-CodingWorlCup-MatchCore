@@ -1,0 +1,85 @@
+# CCIFA MatchCore Kubernetes deployment (arena-aware).
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: matchcore
+  namespace: ccifa
+  labels:
+    app: matchcore
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: matchcore
+  template:
+    metadata:
+      labels:
+        app: matchcore
+    spec:
+      containers:
+        - name: matchcore
+          image: ccifa/matchcore:0.7.0
+          ports:
+            - containerPort: 8000
+          env:
+            - name: DATABASE_URL
+              valueFrom:
+                secretKeyRef: { name: ccifa-secrets, key: database-url }
+            - name: REDIS_URL
+              value: redis://redis:6379/0
+            - name: SEAL_LEDGER_PATH
+              value: /data/sovereign-ledger.jsonl
+            - name: ARENA_OFFLINE
+              value: "true"
+            - name: ARENA_NETWORK_DISABLED
+              value: "true"
+          readinessProbe:
+            httpGet: { path: /health, port: 8000 }
+            initialDelaySeconds: 5
+            periodSeconds: 10
+          livenessProbe:
+            httpGet: { path: /health, port: 8000 }
+            initialDelaySeconds: 15
+            periodSeconds: 20
+          volumeMounts:
+            - name: ledger
+              mountPath: /data
+        - name: arena-node
+          image: ccifa/arena-node:0.7.0
+          env:
+            - name: ARENA_OFFLINE
+              value: "true"
+            - name: ARENA_NETWORK_DISABLED
+              value: "true"
+            - name: ARENA_USB_MOUNT
+              value: /media/sovereign
+          securityContext:
+            capabilities:
+              drop: ["ALL"]
+              add: ["CHOWN"]
+      volumes:
+        - name: ledger
+          persistentVolumeClaim:
+            claimName: matchcore-ledger-pvc
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: matchcore
+  namespace: ccifa
+spec:
+  selector: { app: matchcore }
+  ports:
+    - port: 8000
+      targetPort: 8000
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: matchcore-ledger-pvc
+  namespace: ccifa
+spec:
+  accessModes: ["ReadWriteOnce"]
+  resources:
+    requests:
+      storage: 5Gi
